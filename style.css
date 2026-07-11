@@ -1,0 +1,46 @@
+﻿body
+{
+    font-family:Arial, 'Sans Serif Collection';
+    background-color: #f4f4f4;
+    text-align:center;
+    margin: 0;
+    padding:40px;
+}
+
+h1{
+    color: #2E8B57;
+}
+h2{
+    color: #333333;
+}
+input{
+    display: block;
+    width: 250px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+
+
+}
+button{
+    background-color: #2E8B57;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    
+
+}
+button:hover {
+    background-color: #246b45;
+}
+ #expenses {
+    width: 400px;
+    margin: 30px auto;
+    text-align: left;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
