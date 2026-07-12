@@ -20,7 +20,7 @@ import {
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDd70eZg-7plntGmuV3wUbdE4KcHAlXoLU",
+    apiKey: "AIzaSyDd7OeZg-7plntGmuV3wUbdE4KcHAlXoLU",
     authDomain: "centsu-70adb.firebaseapp.com",
     projectId: "centsu-70adb",
     storageBucket: "centsu-70adb.firebasestorage.app",
