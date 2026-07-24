@@ -16,7 +16,7 @@ const signupButton = document.getElementById("signupButton");
 
 
 
-signUpButton.onclick = function () {
+signupButton.onclick = function () {
 
     const userEmail = email.value;
     const userPassword = password.value;
