@@ -3,7 +3,8 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAutoStateChanged
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 
@@ -74,5 +75,23 @@ signupButton.onclick = function () {
                 });
 
         }
+
+        onAutoStateChanged(auth, function (user) {
+            if (user) {
+                document.getElementById("authSection").style.display = "none";
+                document.getElementById("expenseSection").style.display = "block";
+            }
+            else {
+                documenr.getElementById("authSection").style.display = "block";
+                document.getElementById("expenseSection").style.display = "none";
+            }
+        });
+
+
+
+
+
+
+
 
         };
