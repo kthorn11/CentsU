@@ -2,7 +2,8 @@
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 
@@ -13,6 +14,7 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const loginButton = document.getElementById("loginButton");
 const signupButton = document.getElementById("signupButton");
+const logoutButton = document.getElementById("logoutButton");
 
 
 
@@ -51,5 +53,27 @@ signupButton.onclick = function () {
                 alert(error.message);
             });
     
+
+        logoutButton.onclick = function () {
+
+            signOut(auth)
+                .then(function () {
+
+                    alert("Logged out successfully!");
+
+                    document.getElementById("expenseSection").style.display = "none";
+                    document.getElementById("authSection").style.display = "block";
+
+
+                })
+                .catch(function (error) {
+
+                    alert(error.message);
+
+
+                });
+
+
+
 
 };
