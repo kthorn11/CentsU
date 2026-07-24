@@ -50,6 +50,6 @@ signupButton.onclick = function () {
             .catch(function (error) {
                 alert(error.message);
             });
-    }
+    
 
 };
