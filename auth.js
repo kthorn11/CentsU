@@ -73,6 +73,6 @@ signupButton.onclick = function () {
 
                 });
 
+        }
 
-
-
+        };
