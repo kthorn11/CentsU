@@ -43,6 +43,8 @@ signupButton.onclick = function () {
         signInWithEmailAndPassword(auth, userEmail, userPassword)
             .then(function () {
                 alert("Logged in successfully!");
+                document.getElementById("authSection").style.display = "none";
+                document.getElementById("expenseSection").style.display = "block";
             })
             .catch(function (error) {
                 alert(error.message);
