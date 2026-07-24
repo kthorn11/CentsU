@@ -76,4 +76,3 @@ signupButton.onclick = function () {
 
 
 
-};
