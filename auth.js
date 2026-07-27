@@ -4,7 +4,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAutoStateChanged
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 
@@ -76,7 +76,7 @@ signupButton.onclick = function () {
 
         }
 
-        onAutoStateChanged(auth, function (user) {
+        onAuthStateChanged(auth, function (user) {
             if (user) {
                 document.getElementById("authSection").style.display = "none";
                 document.getElementById("expenseSection").style.display = "block";
