@@ -3,7 +3,6 @@ import { initializeApp }
 
 import {
     getAuth,
-    signInAnonymously,
     onAuthStateChanged
 }
     from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
@@ -41,9 +40,7 @@ onAuthStateChanged(auth, function (user) {
     if (user) {
         displayExpenses(user.uid);
     }
-    else {
-        signInAnonymously(auth);
-    }
+   
 });
 
 
