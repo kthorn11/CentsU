@@ -131,6 +131,14 @@ function displayExpenses(userId) {
 
             editButton.innerHTML = "Edit";
 
+            editButton.onclick = function () {
+
+
+                document.getElementById("amount").value = expense.amount;
+                document.getElementById("category").value = expense.category;
+                document.getElementById("date").value = expense.date;
+            };
+
     
 
 
