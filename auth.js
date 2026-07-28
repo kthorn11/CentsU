@@ -48,6 +48,7 @@ signupButton.onclick = function () {
                 alert("Logged in successfully!");
 
                 document.getElementById("authSection").style.display = "none";
+
                 document.getElementById("expenseSection").style.display = "block";
 
                 email.value = "";
