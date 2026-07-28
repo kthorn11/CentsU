@@ -49,7 +49,7 @@ onAuthStateChanged(auth, function (user) {
 
     if (user) {
         authSection.style.display = "none";
-        expenseSection.style.display = "bolck";
+        expenseSection.style.display = "block";
 
         displayExpenses(user.uid);
     }
