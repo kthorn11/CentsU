@@ -47,6 +47,9 @@ signupButton.onclick = function () {
             .then(function () {
                 alert("Logged in successfully!");
 
+                document.getElementById("authSection").style.display = "none";
+                document.getElementById("expensrSection").style.display = "block";
+
                 email.value = "";
                 password.value = "";
             })
