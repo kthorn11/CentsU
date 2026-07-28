@@ -15,6 +15,7 @@ import {
     where,
     onSnapshot,
     deleteDoc,
+    updateDoc,
     doc
 }
     from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
@@ -108,6 +109,15 @@ function displayExpenses(userId) {
             var newExpense =
                 document.createElement("p");
 
+            var editButton =
+                document.createElement("button");
+
+            editButton.innerHTML = "Edit";
+
+    
+
+
+
             var deleteButton =
                 document.createElement("button");
 
@@ -126,6 +136,8 @@ function displayExpenses(userId) {
                 "<br>Category: " + expense.category +
                 "<br>Date: " + expense.date +
                 "<hr>";
+
+            newExpense.appendChild(editButton);
 
             newExpense.appendChild(deleteButton);
 
