@@ -38,44 +38,44 @@ signupButton.onclick = function () {
         });
 };
 
-    loginButton.onclick = function () {
+loginButton.onclick = function () {
 
-        const userEmail = email.value;
-        const userPassword = password.value;
+    const userEmail = email.value;
+    const userPassword = password.value;
 
-        signInWithEmailAndPassword(auth, userEmail, userPassword)
-            .then(function () {
-                alert("Logged in successfully!");
+    signInWithEmailAndPassword(auth, userEmail, userPassword)
+        .then(function () {
+            alert("Logged in successfully!");
 
-                email.value = "";
-                password.value = "";
-            })
-            .catch(function (error) {
-                alert(error.message);
-            });
-    
+            email.value = "";
+            password.value = "";
+        })
+        .catch(function (error) {
+            alert(error.message);
+        });
+};
 
-        logoutButton.onclick = function () {
+logoutButton.onclick = function () {
 
-            signOut(auth)
-                .then(function () {
+    signOut(auth)
+        .then(function () {
 
-                    alert("Logged out successfully!");
-
-                    
+            alert("Logged out successfully!");
 
 
-                })
-                .catch(function (error) {
-
-                    alert(error.message);
 
 
-                });
+        })
+        .catch(function (error) {
 
-        }
+            alert(error.message);
+
+
+        });
+
+};
 
        
 
 
-        };
+        
