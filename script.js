@@ -13,7 +13,9 @@ import {
     addDoc,
     query,
     where,
-    onSnapshot
+    onSnapshot,
+    deleteDoc,
+    doc
 }
     from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
@@ -101,15 +103,31 @@ function displayExpenses(userId) {
 
         results.forEach(function (savedDocument) {
             var expense = savedDocument.data();
+            var expenseId = savedDocument.id;
 
             var newExpense =
                 document.createElement("p");
+
+            var deleteButton =
+                document.createElement("button");
+
+            deleteButton.innerHTML = "Delete";
+
+            deleteButton.onclick = function () {
+
+
+                deleteDoc(doc(database, "expenses", expenseId));
+
+            };
+
 
             newExpense.innerHTML =
                 "Amount: $" + expense.amount +
                 "<br>Category: " + expense.category +
                 "<br>Date: " + expense.date +
                 "<hr>";
+
+            newExpense.appendChild(deleteButton);
 
             expenses.appendChild(newExpense);
         });
