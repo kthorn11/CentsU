@@ -3,8 +3,8 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
+    signOut
+    
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 
@@ -47,8 +47,8 @@ signupButton.onclick = function () {
             .then(function () {
                 alert("Logged in successfully!");
 
-                document.getElementById("authSection").style.display = "none";
-                document.getElementById("expenseSection").style.display = "block";
+                email.value = "";
+                password.value = "";
             })
             .catch(function (error) {
                 alert(error.message);
@@ -62,8 +62,7 @@ signupButton.onclick = function () {
 
                     alert("Logged out successfully!");
 
-                    document.getElementById("expenseSection").style.display = "none";
-                    document.getElementById("authSection").style.display = "block";
+                    
 
 
                 })
@@ -76,22 +75,7 @@ signupButton.onclick = function () {
 
         }
 
-        onAuthStateChanged(auth, function (user) {
-            if (user) {
-                document.getElementById("authSection").style.display = "none";
-                document.getElementById("expenseSection").style.display = "block";
-            }
-            else {
-                documenr.getElementById("authSection").style.display = "block";
-                document.getElementById("expenseSection").style.display = "none";
-            }
-        });
-
-
-
-
-
-
+       
 
 
         };

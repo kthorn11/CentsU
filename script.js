@@ -40,8 +40,25 @@ var addExpenseButton =
 
 
 onAuthStateChanged(auth, function (user) {
+
+
+    var authSection = document.getElementById("authSection");
+
+    var expenseSection = document.getElementById("expenseSection");
+
+
     if (user) {
+        authSection.style.display = "none";
+        expenseSection.style.display = "bolck";
+
         displayExpenses(user.uid);
+    }
+
+
+    else {
+
+        authSection.style.display = "block";
+        expenseSection.style.display = "none";
     }
    
 });
