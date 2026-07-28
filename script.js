@@ -38,6 +38,8 @@ const database = getFirestore(app);
 var addExpenseButton =
     document.getElementById("addExpenseButton");
 
+var expenseBeingEdited = "";
+
 
 onAuthStateChanged(auth, function (user) {
 
@@ -65,6 +67,7 @@ onAuthStateChanged(auth, function (user) {
 
 
 addExpenseButton.onclick = function () {
+
     var amount =
         document.getElementById("amount").value;
 
@@ -86,87 +89,125 @@ addExpenseButton.onclick = function () {
         return;
     }
 
+    if (expenseBeingEdited != "") {
 
-    addDoc(collection(database, "expenses"),
-        {
-            amount: amount,
-            category: category,
-            date: date,
-            userId: auth.currentUser.uid
-        })
-        .then(function () {
-            document.getElementById("amount").value = "";
-            document.getElementById("category").value = "";
-            document.getElementById("date").value = "";
-        })
-        .catch(function (error) {
-            alert("The expense could not be saved.");
-            console.log(error);
+        updateDoc(
+            doc(database, "expenses", expenseBeingEdited),
+            {
+                amount: amount,
+                category: category,
+                date: date
+
+
+            }
+        )
+            .then(function () {
+
+                expenseBeingEdited = "";
+                addExpenseButton.innerHTML = "Add Expense";
+
+                document.getElementById("amount").value = "";
+                document.getElementById("category").value = "";
+                document.getElementById("date").value = "";
+
+
+
+            })
+
+            .catch(function (error) {
+                alert("This expense could not be updated.");
+                console.log(error);
+            });
+
+        return;
+    }
+
+        addDoc(collection(database, "expenses"),
+            {
+                amount: amount,
+                category: category,
+                date: date,
+                userId: auth.currentUser.uid
+            })
+            .then(function () {
+                document.getElementById("amount").value = "";
+                document.getElementById("category").value = "";
+                document.getElementById("date").value = "";
+            })
+            .catch(function (error) {
+                alert("The expense could not be saved.");
+                console.log(error);
+            });
+    };
+
+
+    function displayExpenses(userId) {
+        var expenses =
+            document.getElementById("expenses");
+
+        var expensesQuery = query(
+            collection(database, "expenses"),
+            where("userId", "==", userId)
+        );
+
+
+        onSnapshot(expensesQuery, function (results) {
+            expenses.innerHTML = "";
+
+            results.forEach(function (savedDocument) {
+                var expense = savedDocument.data();
+                var expenseId = savedDocument.id;
+
+                var newExpense =
+                    document.createElement("p");
+
+                var editButton =
+                    document.createElement("button");
+
+                editButton.innerHTML = "Edit";
+
+                editButton.onclick = function () {
+
+                    expenseBeingEdited = expenseId;
+
+                    addExpenseButton.innerHTML = "Update Expense";
+
+
+                    document.getElementById("amount").value = expense.amount;
+                    document.getElementById("category").value = expense.category;
+                    document.getElementById("date").value = expense.date;
+                };
+
+
+
+
+
+                var deleteButton =
+                    document.createElement("button");
+
+                deleteButton.innerHTML = "Delete";
+
+                deleteButton.onclick = function () {
+
+
+                    deleteDoc(doc(database, "expenses", expenseId));
+
+                };
+
+
+                newExpense.innerHTML =
+                    "Amount: $" + expense.amount +
+                    "<br>Category: " + expense.category +
+                    "<br>Date: " + expense.date +
+                    "<hr>";
+
+                newExpense.appendChild(editButton);
+
+                newExpense.appendChild(deleteButton);
+
+                expenses.appendChild(newExpense);
+            });
         });
-};
 
+    }
 
-function displayExpenses(userId) {
-    var expenses =
-        document.getElementById("expenses");
-
-    var expensesQuery = query(
-        collection(database, "expenses"),
-        where("userId", "==", userId)
-    );
-
-
-    onSnapshot(expensesQuery, function (results) {
-        expenses.innerHTML = "";
-
-        results.forEach(function (savedDocument) {
-            var expense = savedDocument.data();
-            var expenseId = savedDocument.id;
-
-            var newExpense =
-                document.createElement("p");
-
-            var editButton =
-                document.createElement("button");
-
-            editButton.innerHTML = "Edit";
-
-            editButton.onclick = function () {
-
-
-                document.getElementById("amount").value = expense.amount;
-                document.getElementById("category").value = expense.category;
-                document.getElementById("date").value = expense.date;
-            };
-
-    
-
-
-
-            var deleteButton =
-                document.createElement("button");
-
-            deleteButton.innerHTML = "Delete";
-
-            deleteButton.onclick = function () {
-
-
-                deleteDoc(doc(database, "expenses", expenseId));
-
-            };
-
-
-            newExpense.innerHTML =
-                "Amount: $" + expense.amount +
-                "<br>Category: " + expense.category +
-                "<br>Date: " + expense.date +
-                "<hr>";
-
-            newExpense.appendChild(editButton);
-
-            newExpense.appendChild(deleteButton);
-
-            expenses.appendChild(newExpense);
-        });
-    });
-}
