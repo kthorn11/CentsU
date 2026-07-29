@@ -151,86 +151,89 @@ addExpenseButton.onclick = function () {
     };
 
 
-    function displayExpenses(userId) {
-        var expenses =
-            document.getElementById("expenses");
+function displayExpenses(userId) {
+    var expenses =
+        document.getElementById("expenses");
 
-        var expensesQuery = query(
-            collection(database, "expenses"),
-            where("userId", "==", userId)
-        );
-
-
-        onSnapshot(expensesQuery, function (results) {
-            expenses.innerHTML = "";
-
-            results.forEach(function (savedDocument) {
-                var expense = savedDocument.data();
-                var expenseId = savedDocument.id;
-
-                var newExpense =
-                    document.createElement("p");
-
-                var editButton =
-                    document.createElement("button");
-
-                editButton.innerHTML = "Edit";
-
-                editButton.onclick = function () {
-
-                    expenseBeingEdited = expenseId;
-
-                    addExpenseButton.innerHTML = "Update Expense";
+    var expensesQuery = query(
+        collection(database, "expenses"),
+        where("userId", "==", userId)
+    );
 
 
-                    document.getElementById("amount").value = expense.amount;
-                    document.getElementById("category").value = expense.category;
-                    document.getElementById("date").value = expense.date;
-                };
+    onSnapshot(expensesQuery, function (results) {
+        expenses.innerHTML = "";
+
+        results.forEach(function (savedDocument) {
+            var expense = savedDocument.data();
+            var expenseId = savedDocument.id;
+
+            var newExpense =
+                document.createElement("p");
+
+            var editButton =
+                document.createElement("button");
+
+            editButton.innerHTML = "Edit";
+
+            editButton.onclick = function () {
+
+                expenseBeingEdited = expenseId;
+
+                addExpenseButton.innerHTML = "Update Expense";
 
 
+                document.getElementById("amount").value = expense.amount;
+                document.getElementById("category").value = expense.category;
+                document.getElementById("date").value = expense.date;
+            };
 
 
 
-                var deleteButton =
-                    document.createElement("button");
-
-                deleteButton.innerHTML = "Delete";
-
-                deleteButton.onclick = function () {
 
 
-                    deleteDoc(doc(database, "expenses", expenseId));
+            var deleteButton =
+                document.createElement("button");
 
-                };
+            deleteButton.innerHTML = "Delete";
 
-
-                newExpense.innerHTML =
-                    "Amount: $" + expense.amount +
-                    "<br>Category: " + expense.category +
-                    "<br>Date: " + expense.date +
-                    "<hr>";
-
-                newExpense.appendChild(editButton);
-
-                newExpense.appendChild(deleteButton);
-
-                expenses.appendChild(newExpense);
-            });
-
-            saveBudgetButton.onclick = function () {
-
-                var budget = budgetAmount.value;
-
-                if (budget == "") {
+            deleteButton.onclick = function () {
 
 
-                    alert("Please enter a monthly budget.");
-                    return; 
+                deleteDoc(doc(database, "expenses", expenseId));
+
+            };
+
+
+            newExpense.innerHTML =
+                "Amount: $" + expense.amount +
+                "<br>Category: " + expense.category +
+                "<br>Date: " + expense.date +
+                "<hr>";
+
+            newExpense.appendChild(editButton);
+
+            newExpense.appendChild(deleteButton);
+
+            expenses.appendChild(newExpense);
+        });
+
+
+    });
+
+}
+
+             saveBudgetButton.onclick = function () {
+
+            var budget = budgetAmount.value;
+
+            if (budget == "") {
+
+
+                alert("Please enter a monthly budget.");
+                return;
 
 
             }
-        });
 
-    }
-
+        };
