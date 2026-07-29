@@ -51,6 +51,9 @@ var budgetSummary =
 var expenseBeingEdited = "";
 
 
+var totalExpenses = 0;
+
+
 onAuthStateChanged(auth, function (user) {
 
 
@@ -165,8 +168,12 @@ function displayExpenses(userId) {
     onSnapshot(expensesQuery, function (results) {
         expenses.innerHTML = "";
 
+        totalExpenses = 0;
+
         results.forEach(function (savedDocument) {
             var expense = savedDocument.data();
+
+            totalExpenses = totalExpenses + Number(expense.amount);
             var expenseId = savedDocument.id;
 
             var newExpense =
@@ -277,15 +284,19 @@ saveBudgetButton.onclick = function () {
                      onSnapshot(budgetQuery, function (results) {
 
                          budgetSummary.innerHTML = "";
-
+                         
 
                          results.forEach(function (savedDocument) {
 
                              var savedBudget = savedDocument.data();
+                             var remainingBudget =
+                                 Number(savedBudget.budget) - totalExpenses;
 
                              budgetSummary.innerHTML =
 
-                                 "Monthly Budget: $" + savedBudget.budget;
+                                 "Monthly Budget: $" + savedBudget.budget +
+                                 "<br>Total Expense: $" + totalExpenses +
+                                 "<br>Remaining Budget: $" + remainingBudget;
 
                          });
                          
