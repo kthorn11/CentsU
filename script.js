@@ -64,6 +64,7 @@ onAuthStateChanged(auth, function (user) {
         expenseSection.style.display = "block";
 
         displayExpenses(user.uid);
+        displayBudget(user.uid);
     }
 
 
@@ -261,6 +262,32 @@ function displayExpenses(userId) {
                          alert("The budget could not be saved.");
                          console.log(error);
                      });
+
+                 function displayBudget(userId) {
+
+
+                     var budgetQuery = query(
+                         collection(database, "budgets"),
+                         where("userId", "==", userId)
+
+                     );
+
+                     onSnapshot(budgetQuery, function (results) {
+
+                         budgetSummary.innerHTML = "";
+                         results.forEach(function (savedDocument) {
+
+                             var savedBudget = savedDocument.data();
+
+                             budgetSummary.innerHTML =
+                                 "Monthly Budget: $" + savedBudget.budget;
+
+                         });
+                         
+
+                     });
+
+                 }
                      
                  
         };
