@@ -54,6 +54,13 @@ var expenseBeingEdited = "";
 var totalExpenses = 0;
 
 
+
+var goalAmount = document.getElementById("goalAmount");
+var saveGoalButton = document.getElementById("saveGoalButton");
+var goalSummary = document.getElementById("goalSummary");
+
+
+
 onAuthStateChanged(auth, function (user) {
 
 
@@ -272,6 +279,47 @@ saveBudgetButton.onclick = function () {
         });
 };
 
+
+saveGoalButton.onclick = function () {
+
+    var goal = goalAmount.value;
+
+    if (goal == "") {
+
+        alert("Please enter a savings goal.");
+        return;
+    }
+
+    if (auth.currentUser == null) {
+
+        alert("Please wait for the database to connect.");
+        return;
+    }
+
+    addDoc(
+        collection(database, "goals"),
+        {
+            goal: goal,
+            userId: auth.currentUser.uid
+        }
+
+    )
+
+        .then(function () {
+            goalAmount.value = "";
+
+            alert("Savings goal saved successfully.");
+        })
+
+        .catch(function (error) {
+
+            alert("The savings goal could not be saved.");
+            console.log(error);
+        });
+
+
+
+};
                  function displayBudget(userId) {
 
 
