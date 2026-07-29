@@ -224,44 +224,46 @@ function displayExpenses(userId) {
 
 }
 
-             saveBudgetButton.onclick = function () {
+saveBudgetButton.onclick = function () {
 
-            var budget = budgetAmount.value;
+    var budget = budgetAmount.value;
 
-            if (budget == "") {
-
-
-                alert("Please enter a monthly budget.");
-                return;
+    if (budget == "") {
 
 
-                 }
+        alert("Please enter a monthly budget.");
+        return;
 
 
-                 if (auth.currentUser == null) {
+    }
 
-                     alert("Please wait for the database to connect.");
-                     return;
-                 }
 
-                 addDoc(
-                     collection(database, "budgets"),
-                 {
-                     budget: budget,
-                     userId: auth.currentUser.uid
-                 })
+    if (auth.currentUser == null) {
 
-                 .then(function () {
-                     budgetAmount.value = "";
+        alert("Please wait for the database to connect.");
+        return;
+    }
 
-                     alert("Budget saved successfully.");
-                 })
+    addDoc(
+        collection(database, "budgets"),
+        {
+            budget: budget,
+            userId: auth.currentUser.uid
+        }
+    )
 
-                     .catch(function (error) {
+        .then(function () {
+            budgetAmount.value = "";
 
-                         alert("The budget could not be saved.");
-                         console.log(error);
-                     });
+            alert("Budget saved successfully.");
+        })
+
+        .catch(function (error) {
+
+            alert("The budget could not be saved.");
+            console.log(error);
+        });
+};
 
                  function displayBudget(userId) {
 
@@ -275,11 +277,14 @@ function displayExpenses(userId) {
                      onSnapshot(budgetQuery, function (results) {
 
                          budgetSummary.innerHTML = "";
+
+
                          results.forEach(function (savedDocument) {
 
                              var savedBudget = savedDocument.data();
 
                              budgetSummary.innerHTML =
+
                                  "Monthly Budget: $" + savedBudget.budget;
 
                          });
@@ -290,4 +295,4 @@ function displayExpenses(userId) {
                  }
                      
                  
-        };
+       
