@@ -234,6 +234,33 @@ function displayExpenses(userId) {
                 return;
 
 
-            }
+                 }
 
+
+                 if (auth.currentUser == null) {
+
+                     alert("Please wait for the database to connect.");
+                     return;
+                 }
+
+                 addDoc(
+                     collection(database, "budgets"),
+                 {
+                     budget: budget,
+                     userId: auth.currentUser.uid
+                 })
+
+                 .then(function () {
+                     budgetAmount.value = "";
+
+                     alert("Budget saved successfully.");
+                 })
+
+                     .catch(function (error) {
+
+                         alert("The budget could not be saved.");
+                         console.log(error);
+                     });
+                     
+                 
         };
