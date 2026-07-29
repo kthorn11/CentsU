@@ -298,6 +298,11 @@ saveBudgetButton.onclick = function () {
                                  "<br>Total Expense: $" + totalExpenses +
                                  "<br>Remaining Budget: $" + remainingBudget;
 
+                             if (remainingBudget < 0) {
+                                 budgetSummary.innerHTML =
+                                     budgetSummary.innerHTML + "<br>Warning: You have exceeded your monthly budget.";
+                             }
+
                          });
                          
 
