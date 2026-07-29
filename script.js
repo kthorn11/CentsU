@@ -56,6 +56,7 @@ var totalExpenses = 0;
 
 
 var goalAmount = document.getElementById("goalAmount");
+var currentSavings = document.getElementById("currentSavings")
 var saveGoalButton = document.getElementById("saveGoalButton");
 var goalSummary = document.getElementById("goalSummary");
 
@@ -289,10 +290,11 @@ saveBudgetButton.onclick = function () {
 saveGoalButton.onclick = function () {
 
     var goal = goalAmount.value;
+    var savings = currentSavings.value;
 
-    if (goal == "") {
+    if (goal == "" || savings == "") {
 
-        alert("Please enter a savings goal.");
+        alert("Please enter a savings goal and current savings.");
         return;
     }
 
@@ -306,6 +308,7 @@ saveGoalButton.onclick = function () {
         collection(database, "goals"),
         {
             goal: goal,
+            currentSavings: savings,
             userId: auth.currentUser.uid
         }
 
@@ -313,6 +316,7 @@ saveGoalButton.onclick = function () {
 
         .then(function () {
             goalAmount.value = "";
+            currentSavings.value = "";
 
             alert("Savings goal saved successfully.");
         })
@@ -376,8 +380,12 @@ function displayBudget(userId) {
 
                                          var savedGoal = savedDocument.data();
 
+                                         var progress = Number(savedGoal.currentSavings) / Number(savedGoal.goal) * 100;
+
                                          goalSummary.innerHTML =
-                                             "Savings Goal: $" + savedGoal.goal;
+                                             "Savings Goal: $" + savedGoal.goal +
+                                             "<br>Current Savings: $" + savedGoal.currentSavings +
+                                             "<br>Progress: " + progress + "%";
                                      
                                  
             
