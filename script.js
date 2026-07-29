@@ -360,6 +360,12 @@ function displayBudget(userId) {
                 budgetSummary.innerHTML =
                     budgetSummary.innerHTML + "<br>Warning: You have exceeded your monthly budget.";
             }
+
+            else if (remainingBudget <= Number(savedBudget.budget) * 0.20) {
+
+                budgetSummary.innerHTML =
+                    budgetSummary.innerHTML + "<br>Warning: You are close to reaching your monthly budget limit.";
+            }
         });
 
     });
