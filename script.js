@@ -75,6 +75,12 @@ onAuthStateChanged(auth, function (user) {
 
         displayExpenses(user.uid);
         displayBudget(user.uid);
+        displayGoal(user.uid);
+
+
+
+
+
     }
 
 
@@ -349,6 +355,26 @@ saveGoalButton.onclick = function () {
                              if (remainingBudget < 0) {
                                  budgetSummary.innerHTML =
                                      budgetSummary.innerHTML + "<br>Warning: You have exceeded your monthly budget.";
+                             }
+
+
+
+                             function displayGoal(userId) {
+                                 var goalQuery = query(
+                                     collection(database, "goals"),
+                                     where("userId", "==", userId)
+                                 );
+                                 onSnapshot(goalQuery, function (results) {
+
+                                     goalSummary.innerHTML = "";
+                                     results.forEach(function (savedDocument) {
+
+                                         var savedGoal = savedDocument.data();
+
+                                         goalSummary.innerHTML =
+                                             "Savings Goal: $" + savedGoal.goal;
+                                     })
+                                 })
                              }
 
                          });
