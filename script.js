@@ -380,14 +380,17 @@ function displayBudget(userId) {
 
                                          var savedGoal = savedDocument.data();
 
-                                         var progress = Number(savedGoal.currentSavings) / Number(savedGoal.goal) * 100;
+                                         if (savedGoal.currentSavings != undefined) {
 
-                                         goalSummary.innerHTML =
-                                             "Savings Goal: $" + savedGoal.goal +
-                                             "<br>Current Savings: $" + savedGoal.currentSavings +
-                                             "<br>Progress: " + progress + "%";
-                                     
-                                 
+
+                                             var progress = Number(savedGoal.currentSavings) / Number(savedGoal.goal) * 100;
+
+                                             goalSummary.innerHTML =
+                                                 "Savings Goal: $" + savedGoal.goal +
+                                                 "<br>Current Savings: $" + savedGoal.currentSavings +
+                                                 "<br>Progress: " + progress + "%";
+
+                                         }
             
 
                          });
