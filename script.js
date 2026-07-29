@@ -222,7 +222,11 @@ addExpenseButton.onclick = function () {
 
                 var budget = budgetAmount.value;
 
-                alert(budget);
+                if (budget == "") {
+
+
+                    alert("Please enter a monthly budget.");
+                    return; 
 
 
             }
