@@ -38,6 +38,16 @@ const database = getFirestore(app);
 var addExpenseButton =
     document.getElementById("addExpenseButton");
 
+var budgetAmount =
+    document.getElementById("budgetAmount");
+
+var saveBudgetButton =
+    document.getElementById("saveBudgetButton");
+
+var budgetSummary =
+    document.getElementById("budgetSummary");
+
+
 var expenseBeingEdited = "";
 
 
@@ -207,6 +217,15 @@ addExpenseButton.onclick = function () {
 
                 expenses.appendChild(newExpense);
             });
+
+            saveBudgetButton.onclick = function () {
+
+                var budget = budgetAmount.value;
+
+                alert(budget);
+
+
+            }
         });
 
     }
