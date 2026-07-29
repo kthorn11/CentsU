@@ -326,36 +326,41 @@ saveGoalButton.onclick = function () {
 
 
 };
-                 function displayBudget(userId) {
+function displayBudget(userId) {
 
 
-                     var budgetQuery = query(
-                         collection(database, "budgets"),
-                         where("userId", "==", userId)
+    var budgetQuery = query(
+        collection(database, "budgets"),
+        where("userId", "==", userId)
 
-                     );
+    );
 
-                     onSnapshot(budgetQuery, function (results) {
+    onSnapshot(budgetQuery, function (results) {
 
-                         budgetSummary.innerHTML = "";
-                         
+        budgetSummary.innerHTML = "";
 
-                         results.forEach(function (savedDocument) {
 
-                             var savedBudget = savedDocument.data();
-                             var remainingBudget =
-                                 Number(savedBudget.budget) - totalExpenses;
+        results.forEach(function (savedDocument) {
 
-                             budgetSummary.innerHTML =
+            var savedBudget = savedDocument.data();
+            var remainingBudget =
+                Number(savedBudget.budget) - totalExpenses;
 
-                                 "Monthly Budget: $" + savedBudget.budget +
-                                 "<br>Total Expense: $" + totalExpenses +
-                                 "<br>Remaining Budget: $" + remainingBudget;
+            budgetSummary.innerHTML =
 
-                             if (remainingBudget < 0) {
-                                 budgetSummary.innerHTML =
-                                     budgetSummary.innerHTML + "<br>Warning: You have exceeded your monthly budget.";
-                             }
+                "Monthly Budget: $" + savedBudget.budget +
+                "<br>Total Expense: $" + totalExpenses +
+                "<br>Remaining Budget: $" + remainingBudget;
+
+            if (remainingBudget < 0) {
+                budgetSummary.innerHTML =
+                    budgetSummary.innerHTML + "<br>Warning: You have exceeded your monthly budget.";
+            }
+        });
+
+    });
+
+}
 
 
 
@@ -373,9 +378,9 @@ saveGoalButton.onclick = function () {
 
                                          goalSummary.innerHTML =
                                              "Savings Goal: $" + savedGoal.goal;
-                                     })
-                                 })
-                             }
+                                     
+                                 
+            
 
                          });
                          
